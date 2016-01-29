@@ -13,6 +13,10 @@
 		C5DA02CD1C5993EA00FAFD3F /* SmartCast.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5DA02CB1C5993EA00FAFD3F /* SmartCast.xcdatamodeld */; };
 		C5DA02CF1C5993EA00FAFD3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5DA02CE1C5993EA00FAFD3F /* Assets.xcassets */; };
 		C5DA02D21C5993EA00FAFD3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5DA02D01C5993EA00FAFD3F /* LaunchScreen.storyboard */; };
+		C5DA02DB1C59947300FAFD3F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DA02DA1C59947300FAFD3F /* Constants.swift */; };
+		C5DA02DE1C5B0D5100FAFD3F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DA02DD1C5B0D5000FAFD3F /* SettingsViewController.swift */; };
+		C5DA02E11C5B10E100FAFD3F /* ViewExtender.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DA02E01C5B10E100FAFD3F /* ViewExtender.swift */; };
+		C5DA02E31C5B17F000FAFD3F /* CurrentForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DA02E21C5B17F000FAFD3F /* CurrentForecast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		C5DA02CE1C5993EA00FAFD3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C5DA02D11C5993EA00FAFD3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C5DA02D31C5993EA00FAFD3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C5DA02DA1C59947300FAFD3F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C5DA02DD1C5B0D5000FAFD3F /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		C5DA02E01C5B10E100FAFD3F /* ViewExtender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtender.swift; sourceTree = "<group>"; };
+		C5DA02E21C5B17F000FAFD3F /* CurrentForecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentForecast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +64,11 @@
 		C5DA02C31C5993EA00FAFD3F /* SmartCast */ = {
 			isa = PBXGroup;
 			children = (
+				C5DA02E41C5B17FF00FAFD3F /* Model */,
+				C5DA02DF1C5B10D300FAFD3F /* View */,
+				C5DA02DC1C5B0D3A00FAFD3F /* Controller */,
+				C5DA02D91C59945800FAFD3F /* Utilities */,
 				C5DA02C41C5993EA00FAFD3F /* AppDelegate.swift */,
-				C5DA02C61C5993EA00FAFD3F /* ViewController.swift */,
 				C5DA02C81C5993EA00FAFD3F /* Main.storyboard */,
 				C5DA02CE1C5993EA00FAFD3F /* Assets.xcassets */,
 				C5DA02D01C5993EA00FAFD3F /* LaunchScreen.storyboard */,
@@ -65,6 +76,39 @@
 				C5DA02CB1C5993EA00FAFD3F /* SmartCast.xcdatamodeld */,
 			);
 			path = SmartCast;
+			sourceTree = "<group>";
+		};
+		C5DA02D91C59945800FAFD3F /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				C5DA02DA1C59947300FAFD3F /* Constants.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		C5DA02DC1C5B0D3A00FAFD3F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C5DA02C61C5993EA00FAFD3F /* ViewController.swift */,
+				C5DA02DD1C5B0D5000FAFD3F /* SettingsViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		C5DA02DF1C5B10D300FAFD3F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C5DA02E01C5B10E100FAFD3F /* ViewExtender.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		C5DA02E41C5B17FF00FAFD3F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C5DA02E21C5B17F000FAFD3F /* CurrentForecast.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,8 +184,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5DA02CD1C5993EA00FAFD3F /* SmartCast.xcdatamodeld in Sources */,
+				C5DA02E11C5B10E100FAFD3F /* ViewExtender.swift in Sources */,
 				C5DA02C71C5993EA00FAFD3F /* ViewController.swift in Sources */,
+				C5DA02E31C5B17F000FAFD3F /* CurrentForecast.swift in Sources */,
 				C5DA02C51C5993EA00FAFD3F /* AppDelegate.swift in Sources */,
+				C5DA02DE1C5B0D5100FAFD3F /* SettingsViewController.swift in Sources */,
+				C5DA02DB1C59947300FAFD3F /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
