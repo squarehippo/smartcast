@@ -6,31 +6,58 @@
 //  Copyright © 2016 GetRunGo. All rights reserved.
 //
 
+protocol SettingsViewDelegate {
+    func setCityName(name: String)
+}
+
 import UIKit
-import MapKit
 
+class SettingsViewController: UIViewController {
+    
+    
+    var aCity = [City]()
+    var delegate: SettingsViewDelegate!
+    var cityText = ""
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        parseCityCSV()
+        
+        delegate.setCityName(aCity[5].name)
+        
+        print(aCity[5].name)
+    }
+    
+    
+    @IBAction func citySelected(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 
-
-
-func setUsersClosestCity()
-{
-    let geoCoder = CLGeocoder()
-    let location = CLLocation(latitude: 36.073522, longitude: -79.116669)
-    geoCoder.reverseGeocodeLocation(location)
-        {
-            (placemarks, error) -> Void in
+    
+    
+    func parseCityCSV() {
+        let path = NSBundle.mainBundle().pathForResource("cities", ofType: "csv")!
+        
+        do {
+            let csv = try CSV(contentsOfURL: path)
+            let rows = csv.rows
             
-            let placeArray = placemarks as [CLPlacemark]!
-            
-            // Place details
-            var placeMark: CLPlacemark!
-            placeMark = placeArray?[0]
-            
-            // City
-            if let city = placeMark.addressDictionary?["City"] as? NSString
-            {
-                print(city)
+            for row in rows {
+                let name = row["city"]
+                let state = row["state"]
+                let lat = row["lat"]
+                let lng = row["lng"]
+                let city = City(name: name!, state: state!, latitude: lat!, longitude: lng!)
+                aCity.append(city)
             }
             
+        } catch let err as NSError {
+            print(err.debugDescription)
+        }
     }
+
+    
+    
 }

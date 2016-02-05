@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C599790D1C5D428300C78203 /* cities.csv in Resources */ = {isa = PBXBuildFile; fileRef = C599790C1C5D428300C78203 /* cities.csv */; };
+		C59979101C5D467100C78203 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = C599790F1C5D467100C78203 /* City.swift */; };
+		C59979121C5D4AB300C78203 /* csv.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59979111C5D4AB300C78203 /* csv.swift */; };
+		C59979161C5EB49700C78203 /* Huruf-Miranti.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C59979151C5EB49700C78203 /* Huruf-Miranti.ttf */; };
+		C59979181C5EB7A300C78203 /* Huruf-Miranti-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C59979171C5EB7A300C78203 /* Huruf-Miranti-Bold.ttf */; };
 		C5DA02C51C5993EA00FAFD3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DA02C41C5993EA00FAFD3F /* AppDelegate.swift */; };
 		C5DA02C71C5993EA00FAFD3F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DA02C61C5993EA00FAFD3F /* ViewController.swift */; };
 		C5DA02CA1C5993EA00FAFD3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5DA02C81C5993EA00FAFD3F /* Main.storyboard */; };
@@ -20,6 +25,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C599790C1C5D428300C78203 /* cities.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cities.csv; path = ../cities.csv; sourceTree = "<group>"; };
+		C599790F1C5D467100C78203 /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		C59979111C5D4AB300C78203 /* csv.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = csv.swift; sourceTree = "<group>"; };
+		C59979151C5EB49700C78203 /* Huruf-Miranti.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Huruf-Miranti.ttf"; path = "../Huruf-Miranti.ttf"; sourceTree = "<group>"; };
+		C59979171C5EB7A300C78203 /* Huruf-Miranti-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Huruf-Miranti-Bold.ttf"; path = "../Huruf-Miranti-Bold.ttf"; sourceTree = "<group>"; };
 		C5DA02C11C5993EA00FAFD3F /* SmartCast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartCast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5DA02C41C5993EA00FAFD3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C5DA02C61C5993EA00FAFD3F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +55,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C599790E1C5D42B000C78203 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C59979151C5EB49700C78203 /* Huruf-Miranti.ttf */,
+				C59979171C5EB7A300C78203 /* Huruf-Miranti-Bold.ttf */,
+				C599790C1C5D428300C78203 /* cities.csv */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		C5DA02B81C5993EA00FAFD3F = {
 			isa = PBXGroup;
 			children = (
@@ -68,8 +88,9 @@
 				C5DA02DF1C5B10D300FAFD3F /* View */,
 				C5DA02DC1C5B0D3A00FAFD3F /* Controller */,
 				C5DA02D91C59945800FAFD3F /* Utilities */,
-				C5DA02C41C5993EA00FAFD3F /* AppDelegate.swift */,
+				C599790E1C5D42B000C78203 /* Resources */,
 				C5DA02C81C5993EA00FAFD3F /* Main.storyboard */,
+				C5DA02C41C5993EA00FAFD3F /* AppDelegate.swift */,
 				C5DA02CE1C5993EA00FAFD3F /* Assets.xcassets */,
 				C5DA02D01C5993EA00FAFD3F /* LaunchScreen.storyboard */,
 				C5DA02D31C5993EA00FAFD3F /* Info.plist */,
@@ -82,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				C5DA02DA1C59947300FAFD3F /* Constants.swift */,
+				C59979111C5D4AB300C78203 /* csv.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -107,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				C5DA02E21C5B17F000FAFD3F /* CurrentForecast.swift */,
+				C599790F1C5D467100C78203 /* City.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -171,8 +194,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5DA02D21C5993EA00FAFD3F /* LaunchScreen.storyboard in Resources */,
+				C599790D1C5D428300C78203 /* cities.csv in Resources */,
 				C5DA02CF1C5993EA00FAFD3F /* Assets.xcassets in Resources */,
 				C5DA02CA1C5993EA00FAFD3F /* Main.storyboard in Resources */,
+				C59979161C5EB49700C78203 /* Huruf-Miranti.ttf in Resources */,
+				C59979181C5EB7A300C78203 /* Huruf-Miranti-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,12 +209,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C59979121C5D4AB300C78203 /* csv.swift in Sources */,
 				C5DA02CD1C5993EA00FAFD3F /* SmartCast.xcdatamodeld in Sources */,
 				C5DA02E11C5B10E100FAFD3F /* ViewExtender.swift in Sources */,
 				C5DA02C71C5993EA00FAFD3F /* ViewController.swift in Sources */,
 				C5DA02E31C5B17F000FAFD3F /* CurrentForecast.swift in Sources */,
 				C5DA02C51C5993EA00FAFD3F /* AppDelegate.swift in Sources */,
 				C5DA02DE1C5B0D5100FAFD3F /* SettingsViewController.swift in Sources */,
+				C59979101C5D467100C78203 /* City.swift in Sources */,
 				C5DA02DB1C59947300FAFD3F /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,6 +367,7 @@
 				C5DA02D81C5993EA00FAFD3F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
