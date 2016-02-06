@@ -32,9 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
-        print("Hello again!")
-        
-        myViewController?.getCurrentWeatherForecast()
+        myViewController?.viewDidLoad()
     }
 
     func applicationDidBecomeActive(application: UIApplication) {

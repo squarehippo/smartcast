@@ -11,7 +11,7 @@ import MapKit
 
 class CurrentForecast {
     
-    private var _currentCity: String?
+    //private var _currentCity: String!
     private var _currentTemp: String!
     private var _currentDay: String!
     private var _currentIcon: String!
@@ -43,15 +43,11 @@ class CurrentForecast {
     private var _day3Name: String!
     private var _day4Name: String!
     private var _day5Name: String!
+
     
-    
-    var currentCity: String {
-        if _currentCity != nil {
-            return _currentCity!
-        } else {
-            return "HILLSBOROUGH"
-        }
-    }
+//    var currentCity: String {
+//        return _currentCity
+//    }
     
     var currentIcon: String {
         return _currentIcon
@@ -176,23 +172,15 @@ class CurrentForecast {
     }
     
     
-    
-    var longitude = 36.073522
-    var latitude = -79.116669
-    
-    
-    
-    func downloadCurrentForecast(completed: DownloadComplete) {
+    func downloadCurrentForecast(coordinates: String, completed: DownloadComplete) {
         
-        let longlat = "\(longitude),\(latitude)"
-        
-        let urlString = "https://api.forecast.io/forecast/c5dc2f6d05b3e421341cd8d53718db2e/\(longlat)"
+        let urlString = "https://api.forecast.io/forecast/c5dc2f6d05b3e421341cd8d53718db2e/\(coordinates)"
         let session = NSURLSession.sharedSession()
         if let url = NSURL(string: urlString) {
             
             let task = session.dataTaskWithURL(url) {( data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
                 
-                self.setUsersClosestCity(self.longitude, curLongitude: self.latitude)
+                //self.setUsersClosestCity(self.longitude, curLongitude: self.latitude)
                 
                 if let responseData = data {
                     
@@ -221,12 +209,19 @@ class CurrentForecast {
                             return
                         }
                         self._currentTimeZoneOffset = curTimeZoneOffset
+                        print("offset = \(curTimeZoneOffset)")
                         
                         //Today's icon
                         guard let curIcon = curForecast["icon"] as? String else {
                             return
                         }
                         self._currentIcon = curIcon
+                        
+                        //Today's chance of precipitation
+                        guard let curPrecipProbability = curForecast["precipProbability"] as? Double else {
+                            return
+                        }
+                        self._currentPrecipProbability = "\(Int(curPrecipProbability * 100))%"
                     
                         //Today's wind speed
                         guard let curWindSpeed = curForecast["windSpeed"] as? Int else {
@@ -306,25 +301,12 @@ class CurrentForecast {
                               let curSunsetTime = dailyDetails[0]["sunsetTime"] as? Double else {
                             return
                         }
+                        
                             self._currentSunriseTime = self.convertUNIXTime(curSunriseTime)
                             self._currentSunsetTime = self.convertUNIXTime(curSunsetTime)
                         
-                        //Precipitation probability
-                        guard let curPrecipProbability = dailyDetails[0]["precipProbability"] as? Double else {
-                                return
-                        }
-                            self._currentPrecipProbability = "\(Int(curPrecipProbability * 100))%"
-                        
-                        //Summary for the week
-//                        guard let dailySummary = dailyDetails[0]["summary"] as? String else {
-//                            return
-//                        }
-//                            self._weatherSummary = dailySummary
 
-                        
-
-                        completed()
-                        
+                        completed()             
                         
                         
                     } catch {
@@ -336,6 +318,7 @@ class CurrentForecast {
         
     }
     
+    //Forcast.io bug - giving wrong icon sometimes
     func formatIcon(icon: String) -> String {
         if icon == "partly-cloudy-night" {
             return "partly-cloudy-day-small"
@@ -345,28 +328,28 @@ class CurrentForecast {
         
     }
     
-    func setUsersClosestCity(curLatitude: Double, curLongitude: Double)
-    {
-        let geoCoder = CLGeocoder()
-        let location = CLLocation(latitude: curLatitude, longitude: curLongitude)
-        geoCoder.reverseGeocodeLocation(location)
-            {
-                (placemarks, error) -> Void in
-                
-                let placeArray = placemarks as [CLPlacemark]!
-                
-                // Place details
-                var placeMark: CLPlacemark!
-                placeMark = placeArray?[0]
-                
-                // City
-                if let city = placeMark.addressDictionary?["City"] as? NSString
-                {
-                    self._currentCity = String(city.uppercaseString)
-                }
-                
-        }
-    }
+//    func setUsersClosestCity(curLatitude: Double, curLongitude: Double)
+//    {
+//        let geoCoder = CLGeocoder()
+//        let location = CLLocation(latitude: curLatitude, longitude: curLongitude)
+//        geoCoder.reverseGeocodeLocation(location)
+//            {
+//                (placemarks, error) -> Void in
+//                
+//                let placeArray = placemarks as [CLPlacemark]!
+//                
+//                // Place details
+//                var placeMark: CLPlacemark!
+//                placeMark = placeArray?[0]
+//                
+//                // City
+//                if let city = placeMark.addressDictionary?["City"] as? NSString
+//                {
+//                    self._currentCity = String(city.uppercaseString)
+//                }
+//                
+//        }
+//    }
     
     func getDayOfWeek(time: Double) -> String? {
         
@@ -456,6 +439,8 @@ class CurrentForecast {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "h:mm a"
         let justTheTime = dateFormatter.stringFromDate(curTime)
+        
+        print("justTheTime = \(justTheTime)")
       
        return justTheTime
         

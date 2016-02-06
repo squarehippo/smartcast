@@ -44,6 +44,11 @@ class ViewController: UIViewController, SettingsViewDelegate {
     @IBOutlet weak var currentIcon: UIImageView!
     @IBOutlet var backgroundColor: UIView!
     @IBOutlet weak var dateToday: UILabel!
+    @IBOutlet weak var rainOrSnow: UILabel!
+
+    
+    var longlat = ""
+        
     
     
 
@@ -55,15 +60,25 @@ class ViewController: UIViewController, SettingsViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Used to refresh data
+        //Sets up app delegate which is used to refresh data when app returns from background
         let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
         appDelegate.myViewController = self
         
-        getCurrentWeatherForecast()
+        getCurrentWeatherForecast(longlat)
+        setCityName("Hillsborough")
         
     }
     
-    func getCurrentWeatherForecast() {
+    func getCurrentWeatherForecast(longlat: String) {
+        print("longlat = \(longlat)")
+        
+        var currentLocation: String
+        
+        if longlat == "" {
+            currentLocation = "36.073522,-79.116669"
+        } else {
+            currentLocation = longlat
+        }
         
         let thisDay = NSDate()
         let formatter = NSDateFormatter()
@@ -77,14 +92,20 @@ class ViewController: UIViewController, SettingsViewDelegate {
         settings.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         
         
-        forecast.downloadCurrentForecast { () -> () in
+        forecast.downloadCurrentForecast(currentLocation) { () -> () in
             dispatch_async(dispatch_get_main_queue()) {
                 self.currentTemperature.text = self.forecast.currentTemp
                 self.rainPercent.text = self.forecast.currentPrecipProbability
-                //print(self.forecast.currentIcon)
-                self.currentIcon.image = UIImage(named: self.forecast.currentIcon) //self.forecast.currentIcon "partly-cloudy-day"
+                
+                /*----------------------------------------------------*/
+                //Testing current icon - comment out one line or the other
+
+                self.currentIcon.image = UIImage(named: self.forecast.currentIcon)
+                //self.currentIcon.image = UIImage(named: "rain") //partly-cloudy-day
+                /*----------------------------------------------------*/
+                
+                //self.city.text = self.forecast.currentCity
                 self.weatherSummary.text = self.forecast.weatherSummary
-                self.city?.text = self.forecast.currentCity.uppercaseString
                 self.day1Name.text = self.forecast.day1Name
                 self.day2Name.text = self.forecast.day2Name
                 self.day3Name.text = self.forecast.day3Name
@@ -108,6 +129,12 @@ class ViewController: UIViewController, SettingsViewDelegate {
                 self.wind.text = "\(self.forecast.windBearing) \(self.forecast.windSpeed)"
                 self.sunrise.text = self.forecast.currentSunriseTime
                 self.sunset.text = self.forecast.currentSunsetTime
+                
+                if Int(self.forecast.currentTemp) <= 32 {
+                    self.rainOrSnow.text = "snow"
+                } else {
+                    self.rainOrSnow.text = "rain"
+                }
                 
                 self.setBackgroundColor()
             }
@@ -141,16 +168,19 @@ class ViewController: UIViewController, SettingsViewDelegate {
     }
     
     func isItDaytime(offset: Int) -> Bool {
-        
+        //print("viewCOntroller offset = \(offset)")
         let now = NSDate()
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "h:mm a"
         let nowAsString = dateFormatter.stringFromDate(now)
         let curOffsetinSeconds: NSTimeInterval = Double(offset * 60) * 60
+        //print(curOffsetinSeconds)
         
         let curSunrise = dateFormatter.dateFromString(sunrise.text!)?.dateByAddingTimeInterval(curOffsetinSeconds)
         let curSunset = dateFormatter.dateFromString(sunset.text!)?.dateByAddingTimeInterval(curOffsetinSeconds)
         let rightNow = dateFormatter.dateFromString(nowAsString)?.dateByAddingTimeInterval(curOffsetinSeconds)
+        
+        //print(rightNow)
  
         if curSunrise!.compare(rightNow!) == NSComparisonResult.OrderedAscending &&
             curSunset!.compare(rightNow!) == NSComparisonResult.OrderedDescending {
