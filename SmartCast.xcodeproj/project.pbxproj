@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C549A4651C66BFEC00FDCFAB /* Podfile in Sources */ = {isa = PBXBuildFile; fileRef = C549A4641C66BFEB00FDCFAB /* Podfile */; };
+		C549A4B01C685C9200FDCFAB /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = C549A4AE1C685C9200FDCFAB /* MyParticle.sks */; };
+		C549A4B11C685C9200FDCFAB /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = C549A4AF1C685C9200FDCFAB /* spark.png */; };
+		C549A4DA1C698E1600FDCFAB /* SnowParticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C549A4D91C698E1600FDCFAB /* SnowParticle.swift */; };
+		C549A4DC1C69A7D600FDCFAB /* RainParticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C549A4DB1C69A7D600FDCFAB /* RainParticle.swift */; };
+		C549A4DE1C69AF1C00FDCFAB /* StarParticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C549A4DD1C69AF1C00FDCFAB /* StarParticle.swift */; };
+		C549A4E01C6BDF2400FDCFAB /* CloudyParticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C549A4DF1C6BDF2300FDCFAB /* CloudyParticle.swift */; };
 		C599790D1C5D428300C78203 /* cities.csv in Resources */ = {isa = PBXBuildFile; fileRef = C599790C1C5D428300C78203 /* cities.csv */; };
 		C59979101C5D467100C78203 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = C599790F1C5D467100C78203 /* City.swift */; };
 		C59979121C5D4AB300C78203 /* csv.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59979111C5D4AB300C78203 /* csv.swift */; };
@@ -25,6 +32,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C549A4641C66BFEB00FDCFAB /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		C549A4AE1C685C9200FDCFAB /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle.sks; sourceTree = "<group>"; };
+		C549A4AF1C685C9200FDCFAB /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		C549A4D91C698E1600FDCFAB /* SnowParticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnowParticle.swift; sourceTree = "<group>"; };
+		C549A4DB1C69A7D600FDCFAB /* RainParticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainParticle.swift; sourceTree = "<group>"; };
+		C549A4DD1C69AF1C00FDCFAB /* StarParticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarParticle.swift; sourceTree = "<group>"; };
+		C549A4DF1C6BDF2300FDCFAB /* CloudyParticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudyParticle.swift; sourceTree = "<group>"; };
 		C599790C1C5D428300C78203 /* cities.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cities.csv; path = ../cities.csv; sourceTree = "<group>"; };
 		C599790F1C5D467100C78203 /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		C59979111C5D4AB300C78203 /* csv.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = csv.swift; sourceTree = "<group>"; };
@@ -61,6 +75,8 @@
 				C59979151C5EB49700C78203 /* Huruf-Miranti.ttf */,
 				C59979171C5EB7A300C78203 /* Huruf-Miranti-Bold.ttf */,
 				C599790C1C5D428300C78203 /* cities.csv */,
+				C549A4AE1C685C9200FDCFAB /* MyParticle.sks */,
+				C549A4AF1C685C9200FDCFAB /* spark.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -68,6 +84,7 @@
 		C5DA02B81C5993EA00FAFD3F = {
 			isa = PBXGroup;
 			children = (
+				C549A4641C66BFEB00FDCFAB /* Podfile */,
 				C5DA02C31C5993EA00FAFD3F /* SmartCast */,
 				C5DA02C21C5993EA00FAFD3F /* Products */,
 			);
@@ -121,6 +138,10 @@
 			isa = PBXGroup;
 			children = (
 				C5DA02E01C5B10E100FAFD3F /* ViewExtender.swift */,
+				C549A4D91C698E1600FDCFAB /* SnowParticle.swift */,
+				C549A4DB1C69A7D600FDCFAB /* RainParticle.swift */,
+				C549A4DD1C69AF1C00FDCFAB /* StarParticle.swift */,
+				C549A4DF1C6BDF2300FDCFAB /* CloudyParticle.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -197,6 +218,8 @@
 				C599790D1C5D428300C78203 /* cities.csv in Resources */,
 				C5DA02CF1C5993EA00FAFD3F /* Assets.xcassets in Resources */,
 				C5DA02CA1C5993EA00FAFD3F /* Main.storyboard in Resources */,
+				C549A4B01C685C9200FDCFAB /* MyParticle.sks in Resources */,
+				C549A4B11C685C9200FDCFAB /* spark.png in Resources */,
 				C59979161C5EB49700C78203 /* Huruf-Miranti.ttf in Resources */,
 				C59979181C5EB7A300C78203 /* Huruf-Miranti-Bold.ttf in Resources */,
 			);
@@ -210,14 +233,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				C59979121C5D4AB300C78203 /* csv.swift in Sources */,
+				C549A4651C66BFEC00FDCFAB /* Podfile in Sources */,
 				C5DA02CD1C5993EA00FAFD3F /* SmartCast.xcdatamodeld in Sources */,
 				C5DA02E11C5B10E100FAFD3F /* ViewExtender.swift in Sources */,
+				C549A4DE1C69AF1C00FDCFAB /* StarParticle.swift in Sources */,
+				C549A4DA1C698E1600FDCFAB /* SnowParticle.swift in Sources */,
 				C5DA02C71C5993EA00FAFD3F /* ViewController.swift in Sources */,
 				C5DA02E31C5B17F000FAFD3F /* CurrentForecast.swift in Sources */,
 				C5DA02C51C5993EA00FAFD3F /* AppDelegate.swift in Sources */,
 				C5DA02DE1C5B0D5100FAFD3F /* SettingsViewController.swift in Sources */,
 				C59979101C5D467100C78203 /* City.swift in Sources */,
+				C549A4E01C6BDF2400FDCFAB /* CloudyParticle.swift in Sources */,
 				C5DA02DB1C59947300FAFD3F /* Constants.swift in Sources */,
+				C549A4DC1C69A7D600FDCFAB /* RainParticle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

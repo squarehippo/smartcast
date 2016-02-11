@@ -18,7 +18,7 @@ class CurrentForecast {
     private var _currentSunriseTime: String!
     private var _currentSunsetTime: String!
     private var _currentPrecipProbability: String!
-    private var _currentTimeZoneOffset: Int!
+    private var _currentTimeZoneOffset: Double!
     private var _windSpeed: String!
     private var _windBearing: String!
     private var _weatherSummary: String!
@@ -65,7 +65,7 @@ class CurrentForecast {
         return _currentPrecipProbability
     }
     
-    var currentTimeZoneOffset: Int {
+    var currentTimeZoneOffset: Double {
         return _currentTimeZoneOffset
     }
     
@@ -180,8 +180,6 @@ class CurrentForecast {
             
             let task = session.dataTaskWithURL(url) {( data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
                 
-                //self.setUsersClosestCity(self.longitude, curLongitude: self.latitude)
-                
                 if let responseData = data {
                     
                     do {
@@ -204,12 +202,10 @@ class CurrentForecast {
                         self._weatherSummary = "Currently \(curSummary.lowercaseString)"
                         
                         //Today's time zone offset
-                        guard let curTimeZoneOffset = dict["offset"] as? Int else {
-                            print("try again")
+                        guard let curTimeZoneOffset = dict["offset"] as? Double else {
                             return
                         }
                         self._currentTimeZoneOffset = curTimeZoneOffset
-                        print("offset = \(curTimeZoneOffset)")
                         
                         //Today's icon
                         guard let curIcon = curForecast["icon"] as? String else {
@@ -217,11 +213,11 @@ class CurrentForecast {
                         }
                         self._currentIcon = curIcon
                         
-                        //Today's chance of precipitation
-                        guard let curPrecipProbability = curForecast["precipProbability"] as? Double else {
-                            return
-                        }
-                        self._currentPrecipProbability = "\(Int(curPrecipProbability * 100))%"
+                        //Today's chance of precipitation - this is the current, right this minute chance of precipitation.  Below is the chance for the day.
+//                        guard let curPrecipProbability = curForecast["precipProbability"] as? Double else {
+//                            return
+//                        }
+//                        self._currentPrecipProbability = "\(Int(curPrecipProbability * 100))%"
                     
                         //Today's wind speed
                         guard let curWindSpeed = curForecast["windSpeed"] as? Int else {
@@ -257,7 +253,7 @@ class CurrentForecast {
                             return
                         }
                         
-                            //Weekly max & min temp
+                        //Weekly max & min temp
                             self._day1MaxTemp = String(format: "%.0f", max1Temp)
                             self._day1MinTemp = String(format: "%.0f", min1Temp)
                             self._day2MaxTemp = String(format: "%.0f", max2Temp)
@@ -296,6 +292,13 @@ class CurrentForecast {
                             self._day4Name = self.getDayOfWeek(curDay4Time)
                             self._day5Name = self.getDayOfWeek(curDay5Time)
                         
+                        
+                        //Precipitation percentage
+                        guard let curPrecipProbability = dailyDetails[0]["precipProbability"] as? Double else {
+                                return
+                        }
+                            self._currentPrecipProbability = "\(Int(curPrecipProbability * 100))%"
+                        
                         //Current sunrise and sunset times
                         guard let curSunriseTime = dailyDetails[0]["sunriseTime"] as? Double,
                               let curSunsetTime = dailyDetails[0]["sunsetTime"] as? Double else {
@@ -304,7 +307,6 @@ class CurrentForecast {
                         
                             self._currentSunriseTime = self.convertUNIXTime(curSunriseTime)
                             self._currentSunsetTime = self.convertUNIXTime(curSunsetTime)
-                        
 
                         completed()             
                         
@@ -318,7 +320,7 @@ class CurrentForecast {
         
     }
     
-    //Forcast.io bug - giving wrong icon sometimes
+    //Forcast.io bug - gives wrong icon sometimes
     func formatIcon(icon: String) -> String {
         if icon == "partly-cloudy-night" {
             return "partly-cloudy-day-small"
@@ -328,28 +330,6 @@ class CurrentForecast {
         
     }
     
-//    func setUsersClosestCity(curLatitude: Double, curLongitude: Double)
-//    {
-//        let geoCoder = CLGeocoder()
-//        let location = CLLocation(latitude: curLatitude, longitude: curLongitude)
-//        geoCoder.reverseGeocodeLocation(location)
-//            {
-//                (placemarks, error) -> Void in
-//                
-//                let placeArray = placemarks as [CLPlacemark]!
-//                
-//                // Place details
-//                var placeMark: CLPlacemark!
-//                placeMark = placeArray?[0]
-//                
-//                // City
-//                if let city = placeMark.addressDictionary?["City"] as? NSString
-//                {
-//                    self._currentCity = String(city.uppercaseString)
-//                }
-//                
-//        }
-//    }
     
     func getDayOfWeek(time: Double) -> String? {
         
@@ -435,12 +415,19 @@ class CurrentForecast {
     
     func convertUNIXTime(time: Double) -> String {
         
-        let curTime = NSDate(timeIntervalSince1970: time)
+        // 1. calculate total time zone offset based on the system's time zone - the offset given by the api
+        let thisTimeZoneOffset = Double(NSTimeZone.systemTimeZone().secondsFromGMT)
+        let totalTimeZoneOffset = thisTimeZoneOffset - ((_currentTimeZoneOffset * 60) * 60)
+        
+        // 2. Get current time by subtracting offset from time passed in function
+        let thisTime = NSDate(timeIntervalSince1970: time - totalTimeZoneOffset)
+
+        // 3. Let date formatter adjust time based on local time zone automatically
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "h:mm a"
-        let justTheTime = dateFormatter.stringFromDate(curTime)
-        
-        print("justTheTime = \(justTheTime)")
+
+        // 4. Format the result and return
+        let justTheTime = dateFormatter.stringFromDate(thisTime)
       
        return justTheTime
         

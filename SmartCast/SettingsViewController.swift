@@ -30,14 +30,11 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //parseCityCSV()
-        //print(aCity[5].name)
     }
     
     
     @IBAction func boulderButton(sender: AnyObject) {
-       pickedCity("Boulder, CO")
+       pickedCity("Sydney, Australia")
     }
 
     @IBAction func traverseCityButton(sender: AnyObject) {
@@ -49,7 +46,7 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func cupertinoButton(sender: AnyObject) {
-        pickedCity("Cupertino, CA")
+        pickedCity("London, England")
     }
     
     func pickedCity(name: String) {
@@ -92,7 +89,5 @@ class SettingsViewController: UIViewController {
 //            print(err.debugDescription)
 //        }
 //    }
-
-    
     
 }
