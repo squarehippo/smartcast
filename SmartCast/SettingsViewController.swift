@@ -19,7 +19,7 @@ import CoreLocation
 class SettingsViewController: UIViewController {
     
     
-    var aCity = [City]()
+    //var aCity = [City]()
     var delegate: SettingsViewDelegate!
     var cityText = ""
     var longlat = ""
@@ -32,6 +32,9 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    @IBAction func seattleButton(sender: AnyObject) {
+        pickedCity("Seattle, WA")
+    }
     
     @IBAction func boulderButton(sender: AnyObject) {
        pickedCity("Sydney, Australia")
@@ -68,26 +71,5 @@ class SettingsViewController: UIViewController {
          self.dismissViewControllerAnimated(true, completion: nil)
 
     }
-    
-//    func parseCityCSV() {
-//        let path = NSBundle.mainBundle().pathForResource("cities", ofType: "csv")!
-//        
-//        do {
-//            let csv = try CSV(contentsOfURL: path)
-//            let rows = csv.rows
-//            
-//            for row in rows {
-//                let name = row["city"]
-//                let state = row["state"]
-//                let lat = row["lat"]
-//                let lng = row["lng"]
-//                let city = City(name: name!, state: state!, latitude: lat!, longitude: lng!)
-//                aCity.append(city)
-//            }
-//            
-//        } catch let err as NSError {
-//            print(err.debugDescription)
-//        }
-//    }
     
 }

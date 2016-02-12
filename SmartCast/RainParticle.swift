@@ -16,7 +16,7 @@ class RainParticle: UIView {
         particleEmitter.emitterPosition = CGPoint(x: thisView.center.x, y: -96)
         particleEmitter.emitterShape = kCAEmitterLayerLine
         particleEmitter.emitterSize = CGSize(width: thisView.frame.size.width, height: 1)
-        particleEmitter.emitterCells = [makeEmitterCellWithColor(UIColor.whiteColor())]
+        particleEmitter.emitterCells = [makeEmitterCellWithColor(UIColor(red: 1, green: 1, blue: 1, alpha: 0.4))]
         
         thisView.layer.addSublayer(particleEmitter)
     }
@@ -24,8 +24,8 @@ class RainParticle: UIView {
     func makeEmitterCellWithColor(color: UIColor) -> CAEmitterCell {
         let cell = CAEmitterCell()
         cell.birthRate = 75
-        cell.alphaSpeed = -0.05
-        cell.alphaRange = 1.5
+        cell.alphaSpeed = 0
+        cell.alphaRange = 0.2
         cell.lifetime = 4.0
         cell.lifetimeRange = 0
         cell.color = color.CGColor

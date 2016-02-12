@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C549A4651C66BFEC00FDCFAB /* Podfile in Sources */ = {isa = PBXBuildFile; fileRef = C549A4641C66BFEB00FDCFAB /* Podfile */; };
 		C549A4B01C685C9200FDCFAB /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = C549A4AE1C685C9200FDCFAB /* MyParticle.sks */; };
 		C549A4B11C685C9200FDCFAB /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = C549A4AF1C685C9200FDCFAB /* spark.png */; };
 		C549A4DA1C698E1600FDCFAB /* SnowParticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C549A4D91C698E1600FDCFAB /* SnowParticle.swift */; };
@@ -32,7 +31,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C549A4641C66BFEB00FDCFAB /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		C549A4AE1C685C9200FDCFAB /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyParticle.sks; sourceTree = "<group>"; };
 		C549A4AF1C685C9200FDCFAB /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		C549A4D91C698E1600FDCFAB /* SnowParticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnowParticle.swift; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 		C5DA02B81C5993EA00FAFD3F = {
 			isa = PBXGroup;
 			children = (
-				C549A4641C66BFEB00FDCFAB /* Podfile */,
 				C5DA02C31C5993EA00FAFD3F /* SmartCast */,
 				C5DA02C21C5993EA00FAFD3F /* Products */,
 			);
@@ -233,7 +230,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C59979121C5D4AB300C78203 /* csv.swift in Sources */,
-				C549A4651C66BFEC00FDCFAB /* Podfile in Sources */,
 				C5DA02CD1C5993EA00FAFD3F /* SmartCast.xcdatamodeld in Sources */,
 				C5DA02E11C5B10E100FAFD3F /* ViewExtender.swift in Sources */,
 				C549A4DE1C69AF1C00FDCFAB /* StarParticle.swift in Sources */,

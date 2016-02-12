@@ -47,6 +47,7 @@ class ViewController: UIViewController, SettingsViewDelegate {
     @IBOutlet weak var dateToday: UILabel!
     @IBOutlet weak var rainOrSnow: UILabel!
     @IBOutlet weak var particleView: UIView!
+    @IBOutlet weak var hills: UIImageView!
 
     var longlat = ""
     var timeZoneOffset: Double = 0.0
@@ -192,11 +193,13 @@ class ViewController: UIViewController, SettingsViewDelegate {
         snow.stopSnow()
         
         let icon = self.forecast.currentIcon
+        hills.image = UIImage(named: "hills")
         
         if icon == "rain" {
             rain.createParticles(particleView)
         } else if icon == "snow" {
             snow.createParticles(particleView)
+            hills.image = UIImage(named: "hills-snowy")
         } else if icon == "partly-cloudy-night" || icon == "clear-night" {
             stars.startStars(particleView)
             //stars.createParticles(particleView)
@@ -261,7 +264,7 @@ extension UIColor {
 
 extension UIView {
     func fadeIn() {
-        UIView.animateWithDuration(1.0,
+        UIView.animateWithDuration(0.3,
             delay: 0.0,
             options: UIViewAnimationOptions.CurveEaseIn,
             animations: { self.alpha = 1.0 },
@@ -269,8 +272,8 @@ extension UIView {
     }
     
     func fadeOut() {
-        UIView.animateWithDuration(0.5,
-            delay: 0.0,
+        UIView.animateWithDuration(0.3,
+            delay: 0.1,
             options: UIViewAnimationOptions.CurveEaseOut,
             animations: { self.alpha = 0.0 },
             completion: nil)
