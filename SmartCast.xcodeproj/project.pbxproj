@@ -13,6 +13,9 @@
 		C549A4DC1C69A7D600FDCFAB /* RainParticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C549A4DB1C69A7D600FDCFAB /* RainParticle.swift */; };
 		C549A4DE1C69AF1C00FDCFAB /* StarParticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C549A4DD1C69AF1C00FDCFAB /* StarParticle.swift */; };
 		C549A4E01C6BDF2400FDCFAB /* CloudyParticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C549A4DF1C6BDF2300FDCFAB /* CloudyParticle.swift */; };
+		C549A4E61C6E60E600FDCFAB /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C549A4E51C6E60E600FDCFAB /* MapViewController.swift */; };
+		C549A5511C74464D00FDCFAB /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C549A5501C74464D00FDCFAB /* PageViewController.swift */; };
+		C549A5531C74F6DF00FDCFAB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C549A5521C74F6DE00FDCFAB /* MainViewController.swift */; };
 		C599790D1C5D428300C78203 /* cities.csv in Resources */ = {isa = PBXBuildFile; fileRef = C599790C1C5D428300C78203 /* cities.csv */; };
 		C59979101C5D467100C78203 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = C599790F1C5D467100C78203 /* City.swift */; };
 		C59979121C5D4AB300C78203 /* csv.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59979111C5D4AB300C78203 /* csv.swift */; };
@@ -37,6 +40,9 @@
 		C549A4DB1C69A7D600FDCFAB /* RainParticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainParticle.swift; sourceTree = "<group>"; };
 		C549A4DD1C69AF1C00FDCFAB /* StarParticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarParticle.swift; sourceTree = "<group>"; };
 		C549A4DF1C6BDF2300FDCFAB /* CloudyParticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudyParticle.swift; sourceTree = "<group>"; };
+		C549A4E51C6E60E600FDCFAB /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		C549A5501C74464D00FDCFAB /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		C549A5521C74F6DE00FDCFAB /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C599790C1C5D428300C78203 /* cities.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cities.csv; path = ../cities.csv; sourceTree = "<group>"; };
 		C599790F1C5D467100C78203 /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		C59979111C5D4AB300C78203 /* csv.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = csv.swift; sourceTree = "<group>"; };
@@ -104,9 +110,9 @@
 				C5DA02D91C59945800FAFD3F /* Utilities */,
 				C599790E1C5D42B000C78203 /* Resources */,
 				C5DA02C81C5993EA00FAFD3F /* Main.storyboard */,
+				C5DA02D01C5993EA00FAFD3F /* LaunchScreen.storyboard */,
 				C5DA02C41C5993EA00FAFD3F /* AppDelegate.swift */,
 				C5DA02CE1C5993EA00FAFD3F /* Assets.xcassets */,
-				C5DA02D01C5993EA00FAFD3F /* LaunchScreen.storyboard */,
 				C5DA02D31C5993EA00FAFD3F /* Info.plist */,
 				C5DA02CB1C5993EA00FAFD3F /* SmartCast.xcdatamodeld */,
 			);
@@ -127,6 +133,9 @@
 			children = (
 				C5DA02C61C5993EA00FAFD3F /* ViewController.swift */,
 				C5DA02DD1C5B0D5000FAFD3F /* SettingsViewController.swift */,
+				C549A4E51C6E60E600FDCFAB /* MapViewController.swift */,
+				C549A5501C74464D00FDCFAB /* PageViewController.swift */,
+				C549A5521C74F6DE00FDCFAB /* MainViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -235,6 +244,8 @@
 				C549A4DE1C69AF1C00FDCFAB /* StarParticle.swift in Sources */,
 				C549A4DA1C698E1600FDCFAB /* SnowParticle.swift in Sources */,
 				C5DA02C71C5993EA00FAFD3F /* ViewController.swift in Sources */,
+				C549A5511C74464D00FDCFAB /* PageViewController.swift in Sources */,
+				C549A5531C74F6DF00FDCFAB /* MainViewController.swift in Sources */,
 				C5DA02E31C5B17F000FAFD3F /* CurrentForecast.swift in Sources */,
 				C5DA02C51C5993EA00FAFD3F /* AppDelegate.swift in Sources */,
 				C5DA02DE1C5B0D5100FAFD3F /* SettingsViewController.swift in Sources */,
@@ -242,6 +253,7 @@
 				C549A4E01C6BDF2400FDCFAB /* CloudyParticle.swift in Sources */,
 				C5DA02DB1C59947300FAFD3F /* Constants.swift in Sources */,
 				C549A4DC1C69A7D600FDCFAB /* RainParticle.swift in Sources */,
+				C549A4E61C6E60E600FDCFAB /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

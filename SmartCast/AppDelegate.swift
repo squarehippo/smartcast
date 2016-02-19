@@ -13,7 +13,7 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var myViewController: ViewController?
+    var myViewController: MainViewController?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -32,7 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
-        myViewController?.viewDidLoad()
+        print("entering foreground")
+        
+        myViewController?.viewDidAppear(true)
     }
 
     func applicationDidBecomeActive(application: UIApplication) {

@@ -30,7 +30,7 @@ class RainParticle: UIView {
         cell.lifetimeRange = 0
         cell.color = color.CGColor
         cell.velocity = 500
-        cell.velocityRange = 50
+        cell.velocityRange = 300
         cell.emissionLongitude = CGFloat(M_PI)
         cell.emissionRange = 0
         cell.spin = 0

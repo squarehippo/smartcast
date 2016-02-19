@@ -7,7 +7,7 @@
 //
 
 protocol SettingsViewDelegate {
-    func setCityName(name: String)
+    func setCurrentCityName(name: String)
     func getCurrentWeatherForecast(longlat: String)
     
 }
@@ -16,8 +16,10 @@ protocol SettingsViewDelegate {
 import UIKit
 import CoreLocation
 
-class SettingsViewController: UIViewController {
-    
+class SettingsViewController: UIViewController, UISearchBarDelegate {
+
+    @IBOutlet weak var searchBar: UISearchBar!
+/*-------------------------------------------------------------------------------------------------------------*/
     
     //var aCity = [City]()
     var delegate: SettingsViewDelegate!
@@ -26,35 +28,62 @@ class SettingsViewController: UIViewController {
     
     let geocoder = CLGeocoder()
     
+/*-------------------------------------------------------------------------------------------------------------*/
     
+    @IBAction func cancel(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+/*-------------------------------------------------------------------------------------------------------------*/
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchBar.delegate = self
     }
+
+/*-------------------------------------------------------------------------------------------------------------*/
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+    }
+    
+
+/*-------------------------------------------------------------------------------------------------------------*/
     
     @IBAction func seattleButton(sender: AnyObject) {
         pickedCity("Seattle, WA")
     }
     
+/*-------------------------------------------------------------------------------------------------------------*/
+    
     @IBAction func boulderButton(sender: AnyObject) {
        pickedCity("Sydney, Australia")
     }
+    
+/*-------------------------------------------------------------------------------------------------------------*/
 
     @IBAction func traverseCityButton(sender: AnyObject) {
         pickedCity("Traverse City, MI")
     }
     
+/*-------------------------------------------------------------------------------------------------------------*/
+    
     @IBAction func hillsboroughButton(sender: AnyObject) {
         pickedCity("Hillsborough, NC")
     }
+    
+/*-------------------------------------------------------------------------------------------------------------*/
     
     @IBAction func cupertinoButton(sender: AnyObject) {
         pickedCity("London, England")
     }
     
+/*-------------------------------------------------------------------------------------------------------------*/
+    
     func pickedCity(name: String) {
         
-        delegate.setCityName(name)
+        delegate.setCurrentCityName(name)
         
         geocoder.geocodeAddressString(name, completionHandler: {(placemarks, error) -> Void in
             if((error) != nil){
@@ -71,5 +100,8 @@ class SettingsViewController: UIViewController {
          self.dismissViewControllerAnimated(true, completion: nil)
 
     }
+    
+/*-------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------*/
     
 }

@@ -11,6 +11,8 @@ import MapKit
 
 class CurrentForecast {
     
+/*-------------------------------------------------------------------------------------------------------------*/
+    
     //private var _currentCity: String!
     private var _currentTemp: String!
     private var _currentDay: String!
@@ -23,6 +25,8 @@ class CurrentForecast {
     private var _windBearing: String!
     private var _weatherSummary: String!
     private let _weatherURL: String!
+    private var _day0MaxTemp: String!
+    private var _day0MinTemp: String!
     private var _day1MaxTemp: String!
     private var _day1MinTemp: String!
     private var _day2MaxTemp: String!
@@ -43,11 +47,8 @@ class CurrentForecast {
     private var _day3Name: String!
     private var _day4Name: String!
     private var _day5Name: String!
-
     
-//    var currentCity: String {
-//        return _currentCity
-//    }
+/*-------------------------------------------------------------------------------------------------------------*/
     
     var currentIcon: String {
         return _currentIcon
@@ -67,6 +68,14 @@ class CurrentForecast {
     
     var currentTimeZoneOffset: Double {
         return _currentTimeZoneOffset
+    }
+    
+    var day0MaxTemp: String {
+        return _day0MaxTemp
+    }
+    
+    var day0MinTemp: String {
+        return _day0MinTemp
     }
     
     var day1MaxTemp: String {
@@ -167,10 +176,13 @@ class CurrentForecast {
     
     var fiveDayArray = [Double]()
     
+/*-------------------------------------------------------------------------------------------------------------*/
+    
     init() {
         _weatherURL = "\(BASE_URL)\(KEY)\(HILLSBOROUGH)"
     }
     
+/*-------------------------------------------------------------------------------------------------------------*/
     
     func downloadCurrentForecast(coordinates: String, completed: DownloadComplete) {
         
@@ -212,12 +224,6 @@ class CurrentForecast {
                             return
                         }
                         self._currentIcon = curIcon
-                        
-                        //Today's chance of precipitation - this is the current, right this minute chance of precipitation.  Below is the chance for the day.
-//                        guard let curPrecipProbability = curForecast["precipProbability"] as? Double else {
-//                            return
-//                        }
-//                        self._currentPrecipProbability = "\(Int(curPrecipProbability * 100))%"
                     
                         //Today's wind speed
                         guard let curWindSpeed = curForecast["windSpeed"] as? Int else {
@@ -240,6 +246,8 @@ class CurrentForecast {
                         
                         guard let curDetails = dict["daily"] as? Dictionary<String, AnyObject>,
                               let dailyDetails = curDetails["data"] as? [Dictionary<String, AnyObject>],
+                              let max0Temp = dailyDetails[0]["temperatureMax"] as? Double,
+                              let min0Temp = dailyDetails[0]["temperatureMin"] as? Double,
                               let max1Temp = dailyDetails[1]["temperatureMax"] as? Double,
                               let min1Temp = dailyDetails[1]["temperatureMin"] as? Double,
                               let max2Temp = dailyDetails[2]["temperatureMax"] as? Double,
@@ -254,6 +262,8 @@ class CurrentForecast {
                         }
                         
                         //Weekly max & min temp
+                            self._day0MaxTemp = String(format: "%.0f", max0Temp)
+                            self._day0MinTemp = String(format: "%.0f", min0Temp)
                             self._day1MaxTemp = String(format: "%.0f", max1Temp)
                             self._day1MinTemp = String(format: "%.0f", min1Temp)
                             self._day2MaxTemp = String(format: "%.0f", max2Temp)
@@ -320,6 +330,8 @@ class CurrentForecast {
         
     }
     
+/*-------------------------------------------------------------------------------------------------------------*/
+    
     //Forcast.io bug - gives wrong icon sometimes
     func formatIcon(icon: String) -> String {
         if icon == "partly-cloudy-night" {
@@ -329,7 +341,8 @@ class CurrentForecast {
         }
         
     }
-    
+
+/*-------------------------------------------------------------------------------------------------------------*/
     
     func getDayOfWeek(time: Double) -> String? {
         
@@ -369,6 +382,8 @@ class CurrentForecast {
             
         }
     }
+    
+/*-------------------------------------------------------------------------------------------------------------*/
     
     func translateWindBearing(bearing: Int) -> String {
         switch bearing {
@@ -413,6 +428,8 @@ class CurrentForecast {
 
     }
     
+/*-------------------------------------------------------------------------------------------------------------*/
+    
     func convertUNIXTime(time: Double) -> String {
         
         // 1. calculate total time zone offset based on the system's time zone - the offset given by the api
@@ -432,8 +449,8 @@ class CurrentForecast {
        return justTheTime
         
     }
-
-
     
-    
+/*-------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------*/
+   
 }

@@ -11,9 +11,7 @@ import MapKit
 
 class ViewController: UIViewController, SettingsViewDelegate {
     
-    var forecast = CurrentForecast()
-    
-    @IBOutlet weak var city: UILabel!
+    @IBOutlet weak var city: UIButton!
     @IBOutlet weak var weatherSummary: UILabel!
     @IBOutlet weak var currentTemperature: UILabel!
     @IBOutlet weak var tempSymbol: UILabel!
@@ -23,6 +21,8 @@ class ViewController: UIViewController, SettingsViewDelegate {
     @IBOutlet weak var day3Name: UILabel!
     @IBOutlet weak var day4Name: UILabel!
     @IBOutlet weak var day5Name: UILabel!
+    @IBOutlet weak var day0Max: UILabel!
+    @IBOutlet weak var day0Min: UILabel!
     @IBOutlet weak var day1Max: UILabel!
     @IBOutlet weak var day1Min: UILabel!
     @IBOutlet weak var day2Max: UILabel!
@@ -48,6 +48,11 @@ class ViewController: UIViewController, SettingsViewDelegate {
     @IBOutlet weak var rainOrSnow: UILabel!
     @IBOutlet weak var particleView: UIView!
     @IBOutlet weak var hills: UIImageView!
+    @IBOutlet weak var pageCount: UIPageControl!
+    
+/*-------------------------------------------------------------------------------------------------------------*/
+    
+    var forecast = CurrentForecast()
 
     var longlat = ""
     var timeZoneOffset: Double = 0.0
@@ -60,13 +65,28 @@ class ViewController: UIViewController, SettingsViewDelegate {
     var weatherBackground = UIColor(hexString: "#06A3FD")
     var isAnimating = false
     
+    var cityName = ""
+    var index = 0
+    var indexCount = 0
+    
+    let geocoder = CLGeocoder()
+    
+/*-------------------------------------------------------------------------------------------------------------*/
+    
     @IBAction func GoToSettings(sender: AnyObject) {
         
+        isAnimating = false
+        
+        currentTemperature.fadeIn()
+        tempSymbol.fadeIn()
+        weatherSummary.fadeIn()
     }
     
+/*-------------------------------------------------------------------------------------------------------------*/
+    
     @IBAction func taps(sender: UITapGestureRecognizer) {
+        
         if !isAnimating {
-            
             currentTemperature.fadeOut()
             currentIcon.dropIcon(view)
             tempSymbol.fadeOut()
@@ -85,20 +105,44 @@ class ViewController: UIViewController, SettingsViewDelegate {
             isAnimating = false
         }
     }
-
+    
+/*-------------------------------------------------------------------------------------------------------------*/
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("5. view controller - getting variables from page view controller")
+
         
+        forecastForCityName(cityName)
         
-        //Sets up app delegate which is used to refresh data when app returns from background
-        let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
-        appDelegate.myViewController = self
+        setCurrentCityName(cityName)
+        //print(cityName)
         
-        getCurrentWeatherForecast(longlat)
-        setCityName("Hillsborough")
+        pageCount.numberOfPages = indexCount
+        pageCount.currentPage = index
+        
         
     }
+    
+/*-------------------------------------------------------------------------------------------------------------*/
+    
+    func forecastForCityName(name: String) {
+
+        geocoder.geocodeAddressString(name, completionHandler: {(placemarks, error) -> Void in
+            if((error) != nil){
+                print("Error", error)
+            }
+            if let placemark = placemarks?.first {
+                let coordinates:CLLocationCoordinate2D = placemark.location!.coordinate
+                self.longlat = "\(coordinates.latitude),\(coordinates.longitude)"
+                self.getCurrentWeatherForecast(self.longlat)
+                
+            }
+        })
+    }
+
+/*-------------------------------------------------------------------------------------------------------------*/
     
     func getCurrentWeatherForecast(longlat: String) {
         
@@ -132,13 +176,14 @@ class ViewController: UIViewController, SettingsViewDelegate {
                 //self.currentIcon.image = UIImage(named: "rain") //partly-cloudy-day
                 /*----------------------------------------------------*/
                 
-                //self.city.text = self.forecast.currentCity
                 self.weatherSummary.text = self.forecast.weatherSummary
                 self.day1Name.text = self.forecast.day1Name
                 self.day2Name.text = self.forecast.day2Name
                 self.day3Name.text = self.forecast.day3Name
                 self.day4Name.text = self.forecast.day4Name
                 self.day5Name.text = self.forecast.day5Name
+                self.day0Max.text = "H \(self.forecast.day0MaxTemp)"
+                self.day0Min.text = "L \(self.forecast.day0MinTemp)"
                 self.day1Max.text = self.forecast.day1MaxTemp
                 self.day1Min.text = self.forecast.day1MinTemp
                 self.day2Max.text = self.forecast.day2MaxTemp
@@ -171,11 +216,13 @@ class ViewController: UIViewController, SettingsViewDelegate {
         }
     }
     
+/*-------------------------------------------------------------------------------------------------------------*/
+    
     func setBackgroundColor() {
         
         let icon = self.forecast.currentIcon
         if self.isItDaytime() == false {
-            weatherBackground = UIColor(hexString: "#111111")
+            weatherBackground = UIColor(hexString: "#333333")
             self.backgroundColor.backgroundColor = weatherBackground
         } else if icon == "rain" || icon == "cloudy" || icon == "fog" || icon == "snow" || icon == "sleet" {
             weatherBackground = UIColor.grayColor()
@@ -186,14 +233,18 @@ class ViewController: UIViewController, SettingsViewDelegate {
         }
     }
     
+/*-------------------------------------------------------------------------------------------------------------*/
+    
     func setWeatherAnimation() {
         
         stars.stopStars()
         rain.stopRain()
         snow.stopSnow()
         
-        let icon = self.forecast.currentIcon
+        //if it's snowing the hills are white.  Otherwise, they are green.  For now.
         hills.image = UIImage(named: "hills")
+        
+        let icon = self.forecast.currentIcon
         
         if icon == "rain" {
             rain.createParticles(particleView)
@@ -202,14 +253,18 @@ class ViewController: UIViewController, SettingsViewDelegate {
             hills.image = UIImage(named: "hills-snowy")
         } else if icon == "partly-cloudy-night" || icon == "clear-night" {
             stars.startStars(particleView)
-            //stars.createParticles(particleView)
         }
     }
     
-    func setCityName(name: String) {
-        city.text = name.uppercaseString
+/*-------------------------------------------------------------------------------------------------------------*/
+    
+    func setCurrentCityName(name: String) {
+        
+        var myCityArray = name.componentsSeparatedByString(",")
+        city.setTitle(myCityArray[0].uppercaseString, forState: UIControlState.Normal)
     }
     
+/*-------------------------------------------------------------------------------------------------------------*/
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "goToSettings") {
@@ -217,6 +272,8 @@ class ViewController: UIViewController, SettingsViewDelegate {
             destination.delegate = self
         }
     }
+    
+/*-------------------------------------------------------------------------------------------------------------*/
     
     func isItDaytime() -> Bool {
         
@@ -242,6 +299,9 @@ class ViewController: UIViewController, SettingsViewDelegate {
     
 }
 
+/*-------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------*/
+
 extension UIColor {
     convenience init(hexString: String) {
         let hex = hexString.stringByTrimmingCharactersInSet(NSCharacterSet.alphanumericCharacterSet().invertedSet)
@@ -266,7 +326,7 @@ extension UIView {
     func fadeIn() {
         UIView.animateWithDuration(0.3,
             delay: 0.0,
-            options: UIViewAnimationOptions.CurveEaseIn,
+            options: [UIViewAnimationOptions.CurveEaseIn, UIViewAnimationOptions.AllowUserInteraction],
             animations: { self.alpha = 1.0 },
             completion: nil)
     }
@@ -274,7 +334,7 @@ extension UIView {
     func fadeOut() {
         UIView.animateWithDuration(0.3,
             delay: 0.1,
-            options: UIViewAnimationOptions.CurveEaseOut,
+            options: [UIViewAnimationOptions.CurveEaseOut, UIViewAnimationOptions.AllowUserInteraction],
             animations: { self.alpha = 0.0 },
             completion: nil)
     }
@@ -282,9 +342,10 @@ extension UIView {
     func dropIcon(thisView: UIView) {
         UIView.animateWithDuration(0.5,
             delay: 0,
-            options: [.CurveEaseIn],
-            animations: { self.center.y += thisView.bounds.width + 20 },
+            options: [UIViewAnimationOptions.CurveEaseIn, UIViewAnimationOptions.AllowUserInteraction],
+            animations: { self.center.y += thisView.bounds.width + 10 },
             completion: nil)
+
     }
     
     func raiseIcon(thisView: UIView) {
@@ -292,8 +353,8 @@ extension UIView {
             delay: 0,
             usingSpringWithDamping: 0.4,
             initialSpringVelocity: 0.2,
-            options: [.CurveEaseOut],
-            animations: { self.center.y -= thisView.bounds.width + 20 },
+            options: [UIViewAnimationOptions.CurveEaseOut, UIViewAnimationOptions.AllowUserInteraction],
+            animations: { self.center.y -= thisView.bounds.width + 10 },
             completion: nil)
     }
     
@@ -301,19 +362,19 @@ extension UIView {
         UIView.animateWithDuration(0.7,
             delay: 0,
             options: [UIViewAnimationOptions.CurveEaseOut, UIViewAnimationOptions.AllowUserInteraction],
-            animations: { self.backgroundColor = UIColor.blackColor() },
+            animations: { self.backgroundColor = UIColor(hexString: "#09679d") },
             completion: nil)
     }
     
     func fadeBackgroundIn(aColor: UIColor) {
         UIView.animateWithDuration(0.5,
             delay: 0,
-            options: UIViewAnimationOptions.CurveEaseIn,
+            options: [UIViewAnimationOptions.CurveEaseIn, UIViewAnimationOptions.AllowUserInteraction],
             animations: { self.backgroundColor = aColor },
             completion: nil)
     }
 
 }
-
+/*-------------------------------------------------------------------------------------------------------------*/
 //clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night
 
