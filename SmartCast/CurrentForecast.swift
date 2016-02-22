@@ -441,13 +441,12 @@ class CurrentForecast {
 
         // 3. Let date formatter adjust time based on local time zone automatically
         let dateFormatter = NSDateFormatter()
+        //dateFormatter.dateStyle = .ShortStyle
+        //dateFormatter.timeStyle = .ShortStyle
         dateFormatter.dateFormat = "h:mm a"
 
         // 4. Format the result and return
-        let justTheTime = dateFormatter.stringFromDate(thisTime)
-      
-       return justTheTime
-        
+        return dateFormatter.stringFromDate(thisTime)  
     }
     
 /*-------------------------------------------------------------------------------------------------------------*/

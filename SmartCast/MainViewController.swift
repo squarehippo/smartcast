@@ -13,13 +13,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("1. assigning app delegate")
-        
-        //Sets up app delegate which is used to refresh data when app returns from background
-        let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
-        appDelegate.myViewController = self
-        
-        
+        //print("1. assigning app delegate")
+ 
     }
     
     override func didReceiveMemoryWarning() {
@@ -28,7 +23,7 @@ class MainViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        print("2. in main view controller, view did appear.  Headed to page view controller")
+        //print("2. in main view controller, view did appear.  Headed to page view controller")
         if let pageViewController = storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as? PageViewController {
             presentViewController(pageViewController, animated: true, completion: nil)
             

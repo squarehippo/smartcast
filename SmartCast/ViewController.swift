@@ -49,6 +49,7 @@ class ViewController: UIViewController, SettingsViewDelegate {
     @IBOutlet weak var particleView: UIView!
     @IBOutlet weak var hills: UIImageView!
     @IBOutlet weak var pageCount: UIPageControl!
+    @IBOutlet weak var backgroundImage: UIImageView!
     
 /*-------------------------------------------------------------------------------------------------------------*/
     
@@ -91,8 +92,13 @@ class ViewController: UIViewController, SettingsViewDelegate {
             currentIcon.dropIcon(view)
             tempSymbol.fadeOut()
             weatherSummary.fadeOut()
-            backgroundColor.fadeBackgroundOut()
-
+            if whichBackgroundShouldIUse() == "night"  {
+                backgroundImage.image = UIImage(named: "moonray")
+            } else {
+                backgroundImage.image = UIImage(named: "sunray")
+            }
+            //backgroundColor.fadeBackgroundOut()
+            backgroundImage.fadeToImage()
             isAnimating = true
             
         } else {
@@ -100,8 +106,8 @@ class ViewController: UIViewController, SettingsViewDelegate {
             currentIcon.raiseIcon(view)
             tempSymbol.fadeIn()
             weatherSummary.fadeIn()
-            backgroundColor.fadeBackgroundIn(weatherBackground)
-            
+            //backgroundColor.fadeBackgroundIn(weatherBackground)
+            backgroundImage.fadeOutImage()
             isAnimating = false
         }
     }
@@ -111,21 +117,18 @@ class ViewController: UIViewController, SettingsViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("5. view controller - getting variables from page view controller")
+        //print("5. view controller - getting variables from page view controller")
 
-        
         forecastForCityName(cityName)
-        
         setCurrentCityName(cityName)
-        //print(cityName)
-        
+
         pageCount.numberOfPages = indexCount
         pageCount.currentPage = index
-        
-        
+  
     }
     
 /*-------------------------------------------------------------------------------------------------------------*/
+//Change city name to coordinates and call API
     
     func forecastForCityName(name: String) {
 
@@ -146,18 +149,31 @@ class ViewController: UIViewController, SettingsViewDelegate {
     
     func getCurrentWeatherForecast(longlat: String) {
         
-        var currentLocation: String
+        let currentLocation = longlat
         
-        if longlat == "" {
-            currentLocation = "36.073522,-79.116669"
-        } else {
-            currentLocation = longlat
-        }
+        
+        
+//        let thisTimeZoneOffset = Double(NSTimeZone.systemTimeZone().secondsFromGMT)
+//        
+//        let totalTimeZoneOffset = thisTimeZoneOffset - ((timeZoneOffset * 60) * 60)
+//        
+//        let now = NSDate.init(timeInterval: -totalTimeZoneOffset, sinceDate: NSDate())
+//        let dateFormatter = NSDateFormatter()
+//        dateFormatter.dateFormat = "h:mm a"
+//        let nowAsString = dateFormatter.stringFromDate(now)
+//        let rightNow = dateFormatter.dateFromString(nowAsString)
+//        dateToday.text = "\(rightNow)"
+        
+        
+        
+        
         
         let thisDay = NSDate()
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "EEEE, MMMM d"
-        dateToday.text = formatter.stringFromDate(thisDay)
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "EEEE, MMMM d"
+        //dateFormatter.dateStyle = .LongStyle
+        //dateFormatter.timeStyle = .LongStyle
+        dateToday.text = dateFormatter.stringFromDate(thisDay)
         
         //Keeps the setting button from gettting squished
         settings.imageView!.contentMode = UIViewContentMode.ScaleAspectFit
@@ -210,7 +226,7 @@ class ViewController: UIViewController, SettingsViewDelegate {
                     self.rainOrSnow.text = "rain"
                 }
                 
-                self.setBackgroundColor()
+                self.setBackground()
                 self.setWeatherAnimation()
             }
         }
@@ -218,16 +234,21 @@ class ViewController: UIViewController, SettingsViewDelegate {
     
 /*-------------------------------------------------------------------------------------------------------------*/
     
-    func setBackgroundColor() {
+    func setBackground() {
+    
+        let currentBackground = whichBackgroundShouldIUse()
         
-        let icon = self.forecast.currentIcon
-        if self.isItDaytime() == false {
+        switch (currentBackground)
+        {
+        case "night":
             weatherBackground = UIColor(hexString: "#333333")
             self.backgroundColor.backgroundColor = weatherBackground
-        } else if icon == "rain" || icon == "cloudy" || icon == "fog" || icon == "snow" || icon == "sleet" {
+        case "sunUpOrDown":
+            backgroundImage.image = UIImage(named: "sunray")
+        case "cloudyDay":
             weatherBackground = UIColor.grayColor()
             self.backgroundColor.backgroundColor = weatherBackground
-        } else {
+        default:
             weatherBackground = UIColor(hexString: "#06A3FD")
             self.backgroundColor.backgroundColor = weatherBackground
         }
@@ -275,11 +296,14 @@ class ViewController: UIViewController, SettingsViewDelegate {
     
 /*-------------------------------------------------------------------------------------------------------------*/
     
-    func isItDaytime() -> Bool {
+    func whichBackgroundShouldIUse() -> String {
+        
+        let icon = self.forecast.currentIcon
         
         let thisTimeZoneOffset = Double(NSTimeZone.systemTimeZone().secondsFromGMT)
+        
         let totalTimeZoneOffset = thisTimeZoneOffset - ((timeZoneOffset * 60) * 60)
-
+        
         let now = NSDate.init(timeInterval: -totalTimeZoneOffset, sinceDate: NSDate())
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "h:mm a"
@@ -288,19 +312,31 @@ class ViewController: UIViewController, SettingsViewDelegate {
         let curSunrise = dateFormatter.dateFromString(sunrise.text!)
         let curSunset = dateFormatter.dateFromString(sunset.text!)
         let rightNow = dateFormatter.dateFromString(nowAsString)
+        
+        let sunUp = curSunrise!.timeIntervalSinceDate(rightNow!)
+        let sunDown = curSunset!.timeIntervalSinceDate(rightNow!)
  
-        if curSunrise!.compare(rightNow!) == NSComparisonResult.OrderedAscending &&
-            curSunset!.compare(rightNow!) == NSComparisonResult.OrderedDescending {
-            return true
-        } else {
-            return false
+        if sunUp <= 180.0 && sunUp >= -180 || sunDown <= 180 && sunDown >= -180 {
+            return "sunUpOrDown"
         }
+        
+        if icon == "rain" || icon == "cloudy" || icon == "fog" || icon == "snow" || icon == "sleet" {
+            return "cloudyDay"
+        }
+
+        if curSunset!.compare(rightNow!) == NSComparisonResult.OrderedAscending ||
+           curSunrise!.compare(rightNow!) == NSComparisonResult.OrderedDescending {
+            return "night"
+        }
+        
+        return "day"
     }
+
+    
+/*-------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------*/
     
 }
-
-/*-------------------------------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------------------------------*/
 
 extension UIColor {
     convenience init(hexString: String) {
@@ -321,6 +357,26 @@ extension UIColor {
         self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
     }
 }
+
+extension UIImageView {
+
+    func fadeToImage() {
+        UIView.animateWithDuration(0.5,
+            delay: 0,
+            options: [UIViewAnimationOptions.CurveEaseIn, UIViewAnimationOptions.AllowUserInteraction],
+            animations: { self.alpha = 1.0 },
+            completion: nil)
+    }
+    
+    func fadeOutImage() {
+        UIView.animateWithDuration(0.5,
+            delay: 0,
+            options: [UIViewAnimationOptions.CurveEaseIn, UIViewAnimationOptions.AllowUserInteraction],
+            animations: { self.alpha = 0.0 },
+            completion: nil)
+    }
+}
+
 
 extension UIView {
     func fadeIn() {
@@ -343,7 +399,7 @@ extension UIView {
         UIView.animateWithDuration(0.5,
             delay: 0,
             options: [UIViewAnimationOptions.CurveEaseIn, UIViewAnimationOptions.AllowUserInteraction],
-            animations: { self.center.y += thisView.bounds.width + 10 },
+            animations: { self.center.y += thisView.bounds.width - 10 },
             completion: nil)
 
     }
@@ -354,7 +410,7 @@ extension UIView {
             usingSpringWithDamping: 0.4,
             initialSpringVelocity: 0.2,
             options: [UIViewAnimationOptions.CurveEaseOut, UIViewAnimationOptions.AllowUserInteraction],
-            animations: { self.center.y -= thisView.bounds.width + 10 },
+            animations: { self.center.y -= thisView.bounds.width - 10 },
             completion: nil)
     }
     

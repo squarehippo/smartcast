@@ -47,6 +47,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="moonray" translatesAutoresizingMaskIntoConstraints="NO" id="LCc-ql-htT">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HGm-tf-id0">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <gestureRecognizers/>
@@ -796,8 +799,10 @@
                             <constraint firstItem="C2q-Wg-ReX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9E4-T3-TMy"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HGm-tf-id0" secondAttribute="bottom" id="BOK-au-OQC"/>
                             <constraint firstItem="HGm-tf-id0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="GJv-Op-xHa"/>
+                            <constraint firstAttribute="trailing" secondItem="LCc-ql-htT" secondAttribute="trailing" id="H3m-oc-1Qi"/>
                             <constraint firstAttribute="trailing" secondItem="Ozr-ef-akD" secondAttribute="trailing" id="HZ8-2e-ay2"/>
                             <constraint firstItem="C2q-Wg-ReX" firstAttribute="top" secondItem="1VU-zJ-sX1" secondAttribute="bottom" constant="8" id="ICY-r6-4Uc"/>
+                            <constraint firstItem="LCc-ql-htT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="KvG-ZN-4XV"/>
                             <constraint firstAttribute="trailing" secondItem="5gm-a6-0Wb" secondAttribute="trailing" id="MvD-2b-MEi"/>
                             <constraint firstItem="Ozr-ef-akD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="RRw-gh-jE6"/>
                             <constraint firstAttribute="trailing" secondItem="iEZ-7a-ngM" secondAttribute="trailing" id="RTD-v7-4ds"/>
@@ -808,6 +813,7 @@
                             <constraint firstAttribute="bottom" secondItem="Ozr-ef-akD" secondAttribute="bottom" id="ZRw-OO-Mpl"/>
                             <constraint firstItem="sxA-pl-P5j" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="208" id="ZpR-Qv-PoX"/>
                             <constraint firstAttribute="trailing" secondItem="1VU-zJ-sX1" secondAttribute="trailing" id="av7-P9-DFC"/>
+                            <constraint firstItem="LCc-ql-htT" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="bc8-rL-ina"/>
                             <constraint firstItem="Yst-5M-QeU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fWA-Sq-KHU"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="iEZ-7a-ngM" secondAttribute="bottom" id="gLA-jO-R5J"/>
                             <constraint firstItem="5gm-a6-0Wb" firstAttribute="top" secondItem="C2q-Wg-ReX" secondAttribute="bottom" constant="100" id="hA0-ZB-PZw"/>
@@ -821,6 +827,7 @@
                             <constraint firstItem="sxA-pl-P5j" firstAttribute="centerX" secondItem="Qhq-fl-her" secondAttribute="centerX" id="prS-tL-SBp"/>
                             <constraint firstItem="WB0-Hy-A2N" firstAttribute="centerX" secondItem="Qhq-fl-her" secondAttribute="centerX" id="shx-ed-tsV"/>
                             <constraint firstAttribute="trailing" secondItem="dRz-5f-jPM" secondAttribute="trailing" id="siA-KK-Iwl"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="LCc-ql-htT" secondAttribute="bottom" id="trC-4l-bii"/>
                             <constraint firstItem="Ozr-ef-akD" firstAttribute="top" secondItem="5gm-a6-0Wb" secondAttribute="bottom" constant="1" id="uDz-ay-Anm"/>
                             <constraint firstItem="C2q-Wg-ReX" firstAttribute="width" secondItem="iEZ-7a-ngM" secondAttribute="width" multiplier="0.8" id="uyY-eP-1OO"/>
                             <constraint firstItem="1VU-zJ-sX1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="vgQ-Kv-ayH"/>
@@ -839,6 +846,7 @@
                     </view>
                     <connections>
                         <outlet property="backgroundColor" destination="8bC-Xf-vdC" id="CC0-KR-pQn"/>
+                        <outlet property="backgroundImage" destination="LCc-ql-htT" id="Fv6-dg-xdj"/>
                         <outlet property="city" destination="L03-eP-hWc" id="OeH-rC-IMm"/>
                         <outlet property="currentIcon" destination="WB0-Hy-A2N" id="PWv-nv-ZxN"/>
                         <outlet property="currentTemperature" destination="sxA-pl-P5j" id="Ngt-Pt-pOU"/>
@@ -898,40 +906,8 @@
                     <view key="view" contentMode="scaleToFill" id="75I-Eq-mVa">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pr4-DD-uGZ">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="D9v-vP-5IG"/>
-                                </constraints>
-                                <items>
-                                    <navigationItem title="Enter a City" id="JKM-96-Ewl">
-                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="9Sa-lA-PZ5">
-                                            <connections>
-                                                <action selector="cancel:" destination="wjK-FI-Y4q" id="EQJ-ID-plF"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="fTL-Kc-HRK">
-                                <rect key="frame" x="0.0" y="44" width="600" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="pr4-DD-uGZ" firstAttribute="top" secondItem="75I-Eq-mVa" secondAttribute="top" id="6yK-7f-qip"/>
-                            <constraint firstAttribute="trailing" secondItem="fTL-Kc-HRK" secondAttribute="trailing" id="Q41-aF-W8F"/>
-                            <constraint firstItem="fTL-Kc-HRK" firstAttribute="leading" secondItem="75I-Eq-mVa" secondAttribute="leading" id="UJ3-1g-SzX"/>
-                            <constraint firstItem="pr4-DD-uGZ" firstAttribute="leading" secondItem="75I-Eq-mVa" secondAttribute="leading" id="m8h-kR-GQG"/>
-                            <constraint firstItem="fTL-Kc-HRK" firstAttribute="top" secondItem="pr4-DD-uGZ" secondAttribute="bottom" id="nz3-LL-R1t"/>
-                            <constraint firstAttribute="trailing" secondItem="pr4-DD-uGZ" secondAttribute="trailing" id="wdd-H8-B4b"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="searchBar" destination="fTL-Kc-HRK" id="H4f-2F-zaI"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PEW-gH-exK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -940,7 +916,7 @@
         <!--Page View Controller-->
         <scene sceneID="GMS-3l-OHc">
             <objects>
-                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="2" navigationOrientation="horizontal" spineLocation="none" id="vEN-5q-AsR" customClass="PageViewController" customModule="SmartCast" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="vEN-5q-AsR" customClass="PageViewController" customModule="SmartCast" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IHr-Iz-Aoc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1796" y="475"/>
@@ -1015,6 +991,7 @@
         <image name="cPoint" width="12" height="12"/>
         <image name="divider" width="1" height="31"/>
         <image name="hills" width="248" height="149"/>
+        <image name="moonray" width="1242" height="2208"/>
         <image name="settings2" width="15" height="15"/>
     </resources>
 </document>
