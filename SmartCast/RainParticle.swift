@@ -16,7 +16,7 @@ class RainParticle: UIView {
         particleEmitter.emitterPosition = CGPoint(x: thisView.center.x, y: -96)
         particleEmitter.emitterShape = kCAEmitterLayerLine
         particleEmitter.emitterSize = CGSize(width: thisView.frame.size.width, height: 1)
-        particleEmitter.emitterCells = [makeEmitterCellWithColor(UIColor(red: 1, green: 1, blue: 1, alpha: 0.4))]
+        particleEmitter.emitterCells = [makeEmitterCellWithColor(UIColor.whiteColor().colorWithAlphaComponent(0.7))]
         
         thisView.layer.addSublayer(particleEmitter)
     }
@@ -29,14 +29,14 @@ class RainParticle: UIView {
         cell.lifetime = 4.0
         cell.lifetimeRange = 0
         cell.color = color.CGColor
-        cell.velocity = 500
-        cell.velocityRange = 300
+        cell.velocity = 400
+        cell.velocityRange = 100
         cell.emissionLongitude = CGFloat(M_PI)
         cell.emissionRange = 0
         cell.spin = 0
         cell.spinRange = 0
-        cell.scale = 0.1
-        cell.scaleRange = 0.05
+        cell.scale = 0.05
+        //cell.scaleRange = 0.05
         cell.scaleSpeed = 0
         
         cell.contents = UIImage(named: "spark")?.CGImage

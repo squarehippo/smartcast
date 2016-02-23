@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class ViewController: UIViewController, SettingsViewDelegate {
+class ViewController: UIViewController {
     
     @IBOutlet weak var city: UIButton!
     @IBOutlet weak var weatherSummary: UILabel!
@@ -245,6 +245,7 @@ class ViewController: UIViewController, SettingsViewDelegate {
             self.backgroundColor.backgroundColor = weatherBackground
         case "sunUpOrDown":
             backgroundImage.image = UIImage(named: "sunray")
+            backgroundImage.alpha = 1.0
         case "cloudyDay":
             weatherBackground = UIColor.grayColor()
             self.backgroundColor.backgroundColor = weatherBackground
@@ -289,8 +290,8 @@ class ViewController: UIViewController, SettingsViewDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "goToSettings") {
-            let destination  = segue.destinationViewController as! SettingsViewController
-            destination.delegate = self
+            //let destination  = segue.destinationViewController as! SettingsViewController
+            //destination.delegate = self
         }
     }
     
@@ -300,18 +301,37 @@ class ViewController: UIViewController, SettingsViewDelegate {
         
         let icon = self.forecast.currentIcon
         
+//        print(" ")
+//        print(cityName)
+//        print(icon)
+        
+//offset for my physical location - (NC is -5 hours)
         let thisTimeZoneOffset = Double(NSTimeZone.systemTimeZone().secondsFromGMT)
+//        print("thisTimeZoneOffset = ", (thisTimeZoneOffset / 60) / 60)
         
+//total offset for selected city based on my location (east coast = 0, west coast = 3)
         let totalTimeZoneOffset = thisTimeZoneOffset - ((timeZoneOffset * 60) * 60)
+//        print("timeZoneOffset = ", timeZoneOffset)
+//        print("totalTimeZoneOffset = ", (totalTimeZoneOffset / 60) / 60)
         
+//time of selected city including offset
         let now = NSDate.init(timeInterval: -totalTimeZoneOffset, sinceDate: NSDate())
+//        print("now = ", now)
+        
+//local time of selected city
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "h:mm a"
         let nowAsString = dateFormatter.stringFromDate(now)
+//        print("nowAsString = ", nowAsString)
         
+//same as now with date stripped off
         let curSunrise = dateFormatter.dateFromString(sunrise.text!)
         let curSunset = dateFormatter.dateFromString(sunset.text!)
         let rightNow = dateFormatter.dateFromString(nowAsString)
+        
+//        print("curSunrise = ", curSunrise!)
+//        print("curSunset = ", curSunset!)
+//        print("rightNow = ", rightNow!)
         
         let sunUp = curSunrise!.timeIntervalSinceDate(rightNow!)
         let sunDown = curSunset!.timeIntervalSinceDate(rightNow!)
@@ -320,15 +340,15 @@ class ViewController: UIViewController, SettingsViewDelegate {
             return "sunUpOrDown"
         }
         
+        if curSunset!.compare(rightNow!) == NSComparisonResult.OrderedAscending ||
+            curSunrise!.compare(rightNow!) == NSComparisonResult.OrderedDescending {
+                return "night"
+        }
+        
         if icon == "rain" || icon == "cloudy" || icon == "fog" || icon == "snow" || icon == "sleet" {
             return "cloudyDay"
         }
 
-        if curSunset!.compare(rightNow!) == NSComparisonResult.OrderedAscending ||
-           curSunrise!.compare(rightNow!) == NSComparisonResult.OrderedDescending {
-            return "night"
-        }
-        
         return "day"
     }
 

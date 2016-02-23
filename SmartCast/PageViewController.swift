@@ -10,7 +10,7 @@ import UIKit
 
 class PageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
-    var cityNames = ["Hillsborough, NC", "Traverse City, MI", "Sydney, Australia", "Aspen, CO", "Seattle, WA", "London, England", "Buffalo, NY"]
+    var cityNames = ["Hillsborough, NC", "Traverse City, MI", "Moscow, russia", "mexico", "Aspen, CO", "Seattle, WA", "London, England", "Buffalo, NY"]
     let defaults = NSUserDefaults.standardUserDefaults()
     let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
     
